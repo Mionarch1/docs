@@ -15,7 +15,7 @@
 #         handle_path /api/* {
 #                 # reverse_proxy 192.168.3.19:3000
 #                 rewrite * /api{path}
-#                 reverse_proxy 192.168.31.251:8082
+#                 reverse_proxy 192.168.20.66:8082
 #         }
 
 
@@ -41,36 +41,30 @@
 
 # 线上
 docs.miaomaedu.com {
+	encode zstd gzip
 
+	header +Cache-Control "max-age=0, private, must-revalidate"
 
-        encode zstd gzip
+	# 保留 /api 前缀
+	# handle_path /api/* {
+	#         rewrite * {path}
+	#         reverse_proxy 192.168.3.19:3000
+	# }
 
-        header +Cache-Control "max-age=0, private, must-revalidate"
+	handle_path /api/* {
+		# rewrite * /{path.1}   # 重写去掉 /api 前缀
+		rewrite * /api{path}
+		# reverse_proxy 47.98.248.76:8082
+		reverse_proxy 172.28.49.109:8082
+	}
 
-        # 保留 /api 前缀
-        # handle_path /api/* {
-        #         rewrite * {path}
-        #         reverse_proxy 192.168.3.19:3000
-        # }
+	uri strip_suffix /
 
-        handle_path /api/* {
-                # rewrite * /{path.1}   # 重写去掉 /api 前缀
-                rewrite * /api{path}
-                # reverse_proxy 47.98.248.76:8082
-                reverse_proxy 172.28.49.109:8082
-        }
+	root * /app/frontend/web/dist
 
-
-        uri strip_suffix /
-
-        root * /app/frontend/web/dist
-
-        handle {
-
-
-                templates
-                try_files {path}.html {path} /
-                file_server
-        }
-
+	handle {
+		templates
+		try_files {path}.html {path} /
+		file_server
+	}
 }

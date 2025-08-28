@@ -6,12 +6,12 @@
 import { join } from 'node:path'
 
 export default () => {
-    const isProd = process.env.NODE_ENV === 'production'
+    // const isProd = process.env.NODE_ENV === 'production'
     return {
         database: {
             type: 'postgres',
-            // host: 'localhost',
-            host: isProd ? '172.28.49.109' : '192.168.31.251',
+            host: 'localhost',
+            // host: isProd ? '172.28.49.109' : '192.168.20.6',
             port: 5432,
             username: 'postgres',
             database: 'postgres',

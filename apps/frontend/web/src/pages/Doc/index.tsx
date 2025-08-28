@@ -40,7 +40,8 @@ import { DocEditor } from './DocEditor'
 
 const doc = new Y.Doc()
 // const provider = new WebsocketProvider('ws://localhost:8082', `doc-yjs`, doc)
-const wsHost = import.meta.env.VITE_WS_HOST ?? '192.168.31.251'
+// const wsHost = import.meta.env.VITE_WS_HOST ?? '192.168.20.6'
+const wsHost = import.meta.env.VITE_WS_HOST ?? 'localhost'
 const provider = new WebsocketProvider(`ws://${wsHost}:8082`, `doc-yjs`, doc, { connect: false })
 
 export const Doc = () => {

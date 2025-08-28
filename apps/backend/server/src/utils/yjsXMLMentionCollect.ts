@@ -7,7 +7,14 @@ import { xml2js } from 'xml-js'
 export type YjsXML = string
 
 export const yjsXmlMentionCollect = (xml: YjsXML) => {
-    const docObject = xml2js(xml)
+    if (!xml) return []
+
+    // 1. 去掉 <!DOCTYPE ...> 声明
+    let cleaned = xml.replace(/<!DOCTYPE[^>]*>/gi, '')
+
+    // 2. 去掉 HTML 标签（如果有）
+    cleaned = cleaned.replace(/<html[^>]*>/gi, '').replace(/<\/html>/gi, '')
+    const docObject = xml2js(cleaned)
 
     /**
      * 妙-码

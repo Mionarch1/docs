@@ -9,6 +9,7 @@ import { TableHeader } from '@tiptap/extension-table-header'
 import { TableRow } from '@tiptap/extension-table-row'
 import { Node as PMNode } from 'prosemirror-model'
 import { TableView } from 'prosemirror-tables'
+import { NodeView } from 'prosemirror-view'
 
 import { createBlockSpecFromStronglyTypedTiptapNode, createStronglyTypedTiptapNode } from '../../schema/index'
 import { mergeCSSClasses } from '../../util/browser'
@@ -96,7 +97,7 @@ export const TableBlockContent = createStronglyTypedTiptapNode({
             return new MiaomaDocTableView(node, EMPTY_CELL_WIDTH, {
                 ...(this.options.domAttributes?.blockContent || {}),
                 ...HTMLAttributes,
-            })
+            }) as unknown as NodeView
         }
     },
 })

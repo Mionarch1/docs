@@ -34,7 +34,7 @@ export class YjsPostgresqlModule {
                     useFactory: async () => {
                         // 确保只初始化一次客户端
                         Logger.log('🚀 ~ yjs postgresql: ~ options:', options)
-                        const isProd = process.env.NODE_ENV === 'production'
+                        // const isProd = process.env.NODE_ENV === 'production'
                         /**
                          * 妙码学院出品，作者 @Heyi。
                          */
@@ -45,8 +45,8 @@ export class YjsPostgresqlModule {
                                 // database: process.env.PG_DATABASE,
                                 // user: process.env.PG_USER,
                                 // password: process.env.PG_PASSWORD,
-                                // host: 'localhost',
-                                host: isProd ? '172.28.49.109' : '192.168.31.251',
+                                host: 'localhost',
+                                // host: isProd ? '172.28.49.109' : '192.168.20.6',
                                 port: 5432,
                                 user: 'postgres',
                                 database: 'postgres',
